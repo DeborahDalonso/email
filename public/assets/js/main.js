@@ -47,8 +47,8 @@ $(function () {
             var conf = conf || {};
 
             return BootstrapDialog.show({
-                title: conf.title || 'Carregando...',
-                message: '<div class="loader-image loader-bubble loader-bubble-primary m-5"></div>',
+                title: conf.title || 'Enviando...',
+                message: '<div class="text-center"><div class="loader-image loader-bubble loader-bubble-primary m-5"></div></div>',
                 type: BootstrapDialog.TYPE_PRIMARY,
                 size: BootstrapDialog.SIZE_SMALL,
                 closable: conf.closable || false,
@@ -67,8 +67,8 @@ $(function () {
 
     $('.email').on('input', function () {
         let that = $(this),
-        email = that.val(),
-        message = that.siblings('p');
+            email = that.val(),
+            message = that.siblings('p');
 
         that.css("border", "1px solid red");
         message.text('E-mail fora do formato correto');
@@ -126,7 +126,7 @@ $(function () {
             return false;
         }
 
-        
+
         if (!mail.to.includes("outlook")) {
             Dialog.show('O e-mail "' + mail.from + '" não é um outlook!', $confSize);
             return false;
@@ -148,7 +148,11 @@ $(function () {
                             return;
                         }
 
+                        var processDialog = Dialog.processing();
+
                         $.when(sendEmail(mail)).done(function (resp) {
+                            processDialog.close();
+
                             Dialog.show(resp.message);
                             dialog.close();
                         });

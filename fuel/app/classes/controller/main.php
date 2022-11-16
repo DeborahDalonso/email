@@ -33,22 +33,21 @@ class Main extends Admin
             'message' => ''
         );
 
-        $mail = new \KMailer();
-
-        $mail->isSMTP(true);
-
-        $mail->setUserName($mailFrom);
-        $mail->setPassword($mailPassword);
-
-        $mail->Subject = $mailSubject;
-        $mail->setFrom($mailFrom, $mailFrom);
-        $mail->addAddress($mailTo, $mailTo);
-
-        $mail->Body = '<b>' . $mailMessage . '</b>';
-
-        // $mail->addAttachment($path . $date . '.pdf', $date . '.pdf');
-
         try {
+
+            $mail = new \KMailer();
+
+            $mail->isSMTP(true);
+
+            $mail->setUserName($mailFrom);
+            $mail->setPassword($mailPassword);
+
+            $mail->Subject = $mailSubject;
+            $mail->setFrom($mailFrom, $mailFrom);
+            $mail->addAddress($mailTo, $mailTo);
+
+            $mail->Body = '<b>' . $mailMessage . '</b>';
+
             $mail->send();
 
             $response['message'] = 'Enviado com sucesso!';
