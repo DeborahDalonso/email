@@ -46,14 +46,12 @@ class Main extends Admin
 
         $mail->Body = '<b>' . $mailMessage . '</b>';
 
-        // $mail->addAttachment($path . $date . '-livro-de-turno-' . $shift . '.pdf', $date . '-livro-de-turno-' . $shift . '.pdf');
+        // $mail->addAttachment($path . $date . '.pdf', $date . '.pdf');
 
         try {
             $mail->send();
 
             $response['message'] = 'Enviado com sucesso!';
-
-            return \Response::forge(json_encode($response));
         } catch (\EmailValidationFailedException $e) {
             $response['status'] = 'error';
             $response['message'] = $e->getMessage();
@@ -63,6 +61,14 @@ class Main extends Admin
         } catch (\SmtpAuthenticationFailedException $e) {
             $response['status'] = 'error';
             $response['message'] = $e->getMessage();
+        } catch (phpmailerException $e) {
+            $response['status'] = 'error';
+            $response['message'] = $e->getMessage();
+        } catch (Exception $e) {
+            $response['status'] = 'error';
+            $response['message'] = $e->getMessage();
         }
+
+        return \Response::forge(json_encode($response));
     }
 }
