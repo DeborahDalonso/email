@@ -1,0 +1,23 @@
+.inner-table{
+    margin: 0 !important;
+    padding: 0 !important;
+} 
+.inner-table td {
+    border: none !important;
+    width: 250px;
+}
+.inner-table .border-left {
+    border-left: 1px solid #ccc !important;
+}
+
+.inner-table tr:not(:last-child) td {
+    border-bottom: 1px solid #ccc !important;
+}
+
+.td-actions {
+    width: 500px !important;
+}
+.group-name>p {
+    font-size: 13px;
+    margin-bottom: 20px;
+}
